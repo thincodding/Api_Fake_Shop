@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Sidebar from './components/Sidebar';
+import Alert from './components/Alert';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/product/:id' element={<ProductDetails/>}/>
+          <Route path='/alert' element={<Alert/>}/>
         </Routes>
         <Sidebar/>
       </Router>

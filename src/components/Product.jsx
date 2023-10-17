@@ -3,11 +3,26 @@ import { BsEye, BsPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Product = ({ product }) => {
 
-    const {addTocart} = useContext(CartContext)
+    const notify = () => {
+        toast.success('Add to cart', {
+            position: "top-center",
+            autoClose: 500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
+    const { addTocart } = useContext(CartContext)
 
     const { id, image, category, title, price } = product;
 
@@ -23,11 +38,15 @@ const Product = ({ product }) => {
                         <div className='absolute top-6 right-0 p-2 flex flex-col
            items-center justify-center gap-y-2 
            -right-11 group-hover:right-5 opacity-0 group-hover:opacity-100 transition-all'>
-                            <button onClick={()=> addTocart(product, id)}>
-                                <div className='flex justify-center items-center text-white w-12 h-12 bg-red-500'>
-                                    <BsPlus className='text-3xl' />
-                                </div>
-                            </button>
+                            <div onClick={notify}>
+                                <button onClick={() => addTocart(product, id)}>
+                                    <div className='flex justify-center items-center text-white w-12 h-12 bg-red-500'>
+                                        <BsPlus className='text-3xl' />
+                                        <ToastContainer />
+                                    </div>
+                                </button>
+                            </div>
+
                             <Link to={`/product/${id}`} className='w-12 h-12 bg-white flex justify-center items-center text-primary drop-shadow-xl '>
                                 <BsEye />
                             </Link>
@@ -43,6 +62,7 @@ const Product = ({ product }) => {
                 </div>
 
             </div>
+
         </>
     )
 }
